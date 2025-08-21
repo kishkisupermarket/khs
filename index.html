@@ -4,16 +4,66 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KISHKI Supermarket - Premium Halal Products</title>
+    <meta name="description" content="KISHKI Supermarket - Premium Halal Products. Fresh halal groceries delivered to your doorstep.">
+    <meta name="keywords" content="halal, supermarket, groceries, organic, fresh, delivery, KISHKI">
+    <meta name="theme-color" content="#e74c3c">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="KISHKI Supermarket - Premium Halal Products">
+    <meta property="og:description" content="Fresh halal groceries delivered to your doorstep. Premium quality products at competitive prices.">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1566842600175-97dca3dfc3c7?w=1200">
+    <meta property="og:url" content="https://kishkisupermarket.github.io/kishki-halal/">
+    <meta property="og:type" content="website">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="KISHKI Supermarket - Premium Halal Products">
+    <meta name="twitter:description" content="Fresh halal groceries delivered to your doorstep.">
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "GroceryStore",
+        "name": "KISHKI Supermarket",
+        "description": "Premium Halal Products - Fresh halal groceries",
+        "url": "https://kishkisupermarket.github.io/kishki-halal/",
+        "telephone": "+966-12-345-6789",
+        "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "King Fahd Road",
+            "addressLocality": "Jeddah",
+            "addressCountry": "SA"
+        },
+        "openingHours": "Mo-Su 08:00-22:00",
+        "priceRange": "$$",
+        "image": "https://images.unsplash.com/photo-1566842600175-97dca3dfc3c7?w=1200"
+    }
+    </script>
+
+    <!-- Preload critical resources -->
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="style.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    
+    <!-- Preload critical images -->
+    <link rel="preload" href="https://images.unsplash.com/photo-1563841930606-67e2bce48b78?w=100&h=100&fit=crop" as="image">
+    <link rel="preload" href="https://images.unsplash.com/photo-1566842600175-97dca3dfc3c7?w=1200" as="image">
+
+    <!-- Stylesheets -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="manifest.json">
 </head>
 <body>
     <!-- Navigation Bar -->
     <nav class="navbar">
         <div class="nav-container">
             <a href="#" class="nav-logo" onclick="showPage('home')">
-                <img src="https://images.unsplash.com/photo-1563841930606-67e2bce48b78?w=100&h=100&fit=crop" alt="KISHKI Logo">
+                <img src="https://images.unsplash.com/photo-1563841930606-67e2bce48b78?w=100&h=100&fit=crop" alt="KISHKI Logo" loading="eager">
                 <span>KISHKI</span>
             </a>
             
@@ -130,11 +180,11 @@
                 <div class="products-controls">
                     <div class="search-box">
                         <i class="fas fa-search"></i>
-                        <input type="text" id="productSearch" placeholder="Search products..." class="search-input">
+                        <input type="text" id="productSearch" placeholder="Search products..." class="search-input" aria-label="Search products">
                     </div>
                     
                     <div class="filter-controls">
-                        <select id="categoryFilter" class="filter-select">
+                        <select id="categoryFilter" class="filter-select" aria-label="Filter by category">
                             <option value="all">All Categories</option>
                             <option value="fruits">Fruits</option>
                             <option value="vegetables">Vegetables</option>
@@ -144,7 +194,7 @@
                             <option value="oils">Oils</option>
                         </select>
                         
-                        <select id="sortFilter" class="filter-select">
+                        <select id="sortFilter" class="filter-select" aria-label="Sort products">
                             <option value="default">Default Sorting</option>
                             <option value="price-low">Price: Low to High</option>
                             <option value="price-high">Price: High to Low</option>
@@ -155,15 +205,15 @@
                     </div>
                 </div>
 
-                <div class="products-counter" id="productsCounter"></div>
+                <div class="products-counter" id="productsCounter" aria-live="polite"></div>
 
-                <div class="active-filters" id="activeFilters"></div>
+                <div class="active-filters" id="activeFilters" aria-live="polite"></div>
 
                 <div class="products-grid" id="productsGrid">
                     <!-- سيتم ملؤها بالمنتجات -->
                 </div>
 
-                <div class="pagination" id="pagination"></div>
+                <div class="pagination" id="pagination" aria-label="Products pagination"></div>
             </div>
         </div>
     </section>
@@ -213,8 +263,8 @@
             </button>
             <h2>Login to Your Account</h2>
             <form>
-                <input type="email" placeholder="Email" required>
-                <input type="password" placeholder="Password" required>
+                <input type="email" placeholder="Email" required aria-label="Email address">
+                <input type="password" placeholder="Password" required aria-label="Password">
                 <button type="submit" class="btn btn-primary">Login</button>
             </form>
         </div>
@@ -226,14 +276,14 @@
             <div class="footer-content">
                 <div class="footer-section">
                     <div class="footer-logo">
-                        <img src="https://images.unsplash.com/photo-1563841930606-67e2bce48b78?w=100&h=100&fit=crop" alt="KISHKI Logo">
+                        <img src="https://images.unsplash.com/photo-1563841930606-67e2bce48b78?w=100&h=100&fit=crop" alt="KISHKI Logo" loading="lazy">
                         <span>KISHKI</span>
                     </div>
                     <p>Your trusted online supermarket for premium halal products. Quality and freshness guaranteed.</p>
                     <div class="social-links">
-                        <a href="#"><i class="fab fa-whatsapp"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
                     </div>
                 </div>
 
