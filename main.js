@@ -750,3 +750,47 @@ async function displayProducts(container = '#productsGrid') {
     initFilterSystem();
     filterProducts();
 }
+// أضف هذا في نهاية ملف main.js
+// ===== PERFORMANCE OPTIMIZATION =====
+
+// Lazy Loading للصور
+function initLazyLoading() {
+    const lazyImages = document.querySelectorAll('img[loading="lazy"]');
+    
+    if ('IntersectionObserver' in window) {
+        const imageObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    img.src = img.src;
+                    imageObserver.unobserve(img);
+                }
+            });
+        });
+
+        lazyImages.forEach(img => imageObserver.observe(img));
+    }
+}
+
+// Preload الصور المهمة
+function preloadCriticalImages() {
+    const criticalImages = [
+        'https://images.unsplash.com/photo-1563841930606-67e2bce48b78?w=100&h=100&fit=crop',
+        'https://images.unsplash.com/photo-1566842600175-97dca3dfc3c7?w=1200'
+    ];
+    
+    criticalImages.forEach(src => {
+        const link = document.createElement('link');
+        link.rel = 'preload';
+        link.as = 'image';
+        link.href = src;
+        document.head.appendChild(link);
+    });
+}
+
+// تحسين scroll performance
+function initSmoothScroll() {
+    document.addEventListener('scroll', debounce(() => {
+        // تحسين الأداء أثناء Scroll
+    }, 100));
+}
