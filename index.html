@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>KISHKI Supermarket - Premium Halal Products</title>
-    <meta name="description" content="KISHKI Supermarket - Premium Halal Products. Fresh halal groceries delivered to your doorstep.">
-    <meta name="keywords" content="halal, supermarket, groceries, organic, fresh, delivery, KISHKI">
+    <title>KISHKI HALAL SUPERMARKET - Premium Halal Products</title>
+    <meta name="description" content="KISHKI HALAL SUPERMARKET - Premium Halal Products. Fresh halal groceries delivered to your doorstep.">
+    <meta name="keywords" content="halal, supermarket, groceries, organic, fresh, delivery, KISHKI, halal supermarket, waterloo">
     <meta name="theme-color" content="#e74c3c">
     
     <!-- Open Graph -->
-    <meta property="og:title" content="KISHKI Supermarket - Premium Halal Products">
+    <meta property="og:title" content="KISHKI HALAL SUPERMARKET - Premium Halal Products">
     <meta property="og:description" content="Fresh halal groceries delivered to your doorstep. Premium quality products at competitive prices.">
     <meta property="og:image" content="https://images.unsplash.com/photo-1566842600175-97dca3dfc3c7?w=1200">
     <meta property="og:url" content="https://kishkisupermarket.github.io/kishki-halal/">
@@ -17,7 +17,7 @@
     
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="KISHKI Supermarket - Premium Halal Products">
+    <meta name="twitter:title" content="KISHKI HALAL SUPERMARKET - Premium Halal Products">
     <meta name="twitter:description" content="Fresh halal groceries delivered to your doorstep.">
     
     <!-- Structured Data -->
@@ -25,15 +25,17 @@
     {
         "@context": "https://schema.org",
         "@type": "GroceryStore",
-        "name": "KISHKI Supermarket",
+        "name": "KISHKI HALAL SUPERMARKET",
         "description": "Premium Halal Products - Fresh halal groceries",
         "url": "https://kishkisupermarket.github.io/kishki-halal/",
-        "telephone": "+966-12-345-6789",
+        "telephone": "+1-519-123-4567",
         "address": {
             "@type": "PostalAddress",
-            "streetAddress": "King Fahd Road",
-            "addressLocality": "Jeddah",
-            "addressCountry": "SA"
+            "streetAddress": "468 Albert ST",
+            "addressLocality": "Waterloo",
+            "addressRegion": "ON",
+            "postalCode": "N2L 3V4",
+            "addressCountry": "CA"
         },
         "openingHours": "Mo-Su 08:00-22:00",
         "priceRange": "$$",
@@ -64,7 +66,7 @@
         <div class="nav-container">
             <a href="#" class="nav-logo" onclick="showPage('home')">
                 <img src="https://images.unsplash.com/photo-1563841930606-67e2bce48b78?w=100&h=100&fit=crop" alt="KISHKI Logo" loading="eager">
-                <span>KISHKI</span>
+                <span>KISHKI HALAL SUPERMARKET</span>
             </a>
             
             <ul class="nav-menu">
@@ -96,8 +98,14 @@
     <!-- الصفحة الرئيسية -->
     <section id="home-page" class="page" style="display: block;">
         <div class="container">
+            <!-- Search Box at the Top -->
+            <div class="search-box-top">
+                <i class="fas fa-search"></i>
+                <input type="text" id="mainSearch" placeholder="Search products..." class="search-input-top" aria-label="Search products">
+            </div>
+
             <div class="hero-content">
-                <h1>Welcome to <span class="highlight">KISHKI</span> Supermarket</h1>
+                <h1>Welcome to <span class="highlight">KISHKI HALAL SUPERMARKET</span></h1>
                 <p>Fresh halal groceries delivered to your doorstep. Premium quality products at competitive prices.</p>
                 <div class="hero-buttons">
                     <button class="btn btn-primary" onclick="showPage('products')">
@@ -112,7 +120,7 @@
                 <div class="hero-features">
                     <div class="feature">
                         <i class="fas fa-truck"></i>
-                        <span>Free Delivery</span>
+                        <span>Fast Delivery</span>
                     </div>
                     <div class="feature">
                         <i class="fas fa-shield-alt"></i>
@@ -138,31 +146,31 @@
                     <p class="section-subtitle">Explore our wide range of halal products</p>
                 </div>
                 <div class="categories-grid">
-                    <div class="category-card" onclick="showPage('category-fruits')">
+                    <div class="category-card" onclick="showPage('category-grocery')">
                         <div class="category-icon">
-                            <i class="fas fa-apple-alt"></i>
+                            <i class="fas fa-shopping-basket"></i>
                         </div>
-                        <h3>Fresh Fruits</h3>
-                        <p>Seasonal and exotic fruits from local farms</p>
-                        <span class="category-badge">125 products</span>
+                        <h3>GROCERY</h3>
+                        <p>Daily essentials and pantry items</p>
+                        <span class="category-badge">256 products</span>
+                    </div>
+
+                    <div class="category-card" onclick="showPage('category-meat')">
+                        <div class="category-icon">
+                            <i class="fas fa-drumstick-bite"></i>
+                        </div>
+                        <h3>MEAT</h3>
+                        <p>Fresh halal meat and poultry</p>
+                        <span class="category-badge">89 products</span>
                     </div>
 
                     <div class="category-card" onclick="showPage('category-vegetables')">
                         <div class="category-icon">
                             <i class="fas fa-carrot"></i>
                         </div>
-                        <h3>Vegetables</h3>
-                        <p>Organic vegetables picked daily</p>
-                        <span class="category-badge">98 products</span>
-                    </div>
-
-                    <div class="category-card" onclick="showPage('category-dairy')">
-                        <div class="category-icon">
-                            <i class="fas fa-cheese"></i>
-                        </div>
-                        <h3>Dairy Products</h3>
-                        <p>Fresh milk, cheese, and eggs</p>
-                        <span class="category-badge">76 products</span>
+                        <h3>VEGETABLES</h3>
+                        <p>Fresh vegetables and fruits</p>
+                        <span class="category-badge">134 products</span>
                     </div>
                 </div>
             </div>
@@ -178,20 +186,12 @@
 
                 <!-- عناصر التحكم في التصفية -->
                 <div class="products-controls">
-                    <div class="search-box">
-                        <i class="fas fa-search"></i>
-                        <input type="text" id="productSearch" placeholder="Search products..." class="search-input" aria-label="Search products">
-                    </div>
-                    
                     <div class="filter-controls">
                         <select id="categoryFilter" class="filter-select" aria-label="Filter by category">
                             <option value="all">All Categories</option>
-                            <option value="fruits">Fruits</option>
-                            <option value="vegetables">Vegetables</option>
-                            <option value="dairy">Dairy</option>
-                            <option value="meat">Meat</option>
-                            <option value="bakery">Bakery</option>
-                            <option value="oils">Oils</option>
+                            <option value="grocery">GROCERY</option>
+                            <option value="meat">MEAT</option>
+                            <option value="vegetables">VEGETABLES</option>
                         </select>
                         
                         <select id="sortFilter" class="filter-select" aria-label="Sort products">
@@ -250,8 +250,8 @@
             <button class="back-btn" onclick="showPage('home')">
                 <i class="fas fa-arrow-left"></i> Back to Home
             </button>
-            <h2>About KISHKI Supermarket</h2>
-            <p>We are a premium halal supermarket dedicated to providing the highest quality products.</p>
+            <h2>About KISHKI HALAL SUPERMARKET</h2>
+            <p>We are a premium halal supermarket dedicated to providing the highest quality halal products in Waterloo, Ontario.</p>
         </div>
     </section>
 
@@ -277,9 +277,9 @@
                 <div class="footer-section">
                     <div class="footer-logo">
                         <img src="https://images.unsplash.com/photo-1563841930606-67e2bce48b78?w=100&h=100&fit=crop" alt="KISHKI Logo" loading="lazy">
-                        <span>KISHKI</span>
+                        <span>KISHKI HALAL SUPERMARKET</span>
                     </div>
-                    <p>Your trusted online supermarket for premium halal products. Quality and freshness guaranteed.</p>
+                    <p>Your trusted halal supermarket in Waterloo for premium halal products. Quality and freshness guaranteed.</p>
                     <div class="social-links">
                         <a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
                         <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
@@ -298,14 +298,14 @@
 
                 <div class="footer-section">
                     <h3>Contact Info</h3>
-                    <p><i class="fas fa-map-marker-alt"></i> King Fahd Road, Jeddah</p>
-                    <p><i class="fas fa-phone"></i> +966 12 345 6789</p>
-                    <p><i class="fas fa-envelope"></i> info@kishki.com</p>
+                    <p><i class="fas fa-map-marker-alt"></i> 468 ALBERT ST, WATERLOO, ON N2L 3V4</p>
+                    <p><i class="fas fa-phone"></i> +1-519-123-4567</p>
+                    <p><i class="fas fa-envelope"></i> KISHKISUPERMARKET@HOTMAIL.COM</p>
                 </div>
             </div>
 
             <div class="footer-bottom">
-                <p>&copy; 2024 KISHKI Supermarket. All rights reserved.</p>
+                <p>&copy; 2024 KISHKI HALAL SUPERMARKET. All rights reserved.</p>
             </div>
         </div>
     </footer>
