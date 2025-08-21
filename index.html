@@ -6,9 +6,371 @@
     <title>KISHKI Supermarket - Premium Halal Products</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css"> <!-- الملف الجديد -->
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- محتوى HTML يبقى كما هو -->
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="nav-logo" onclick="showPage('home')">
+                <img src="https://images.unsplash.com/photo-1563841930606-67e2bce48b78?w=100&h=100&fit=crop" alt="KISHKI Logo">
+                <span>KISHKI</span>
+            </a>
+            
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="#" class="nav-link" onclick="showPage('home')">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" onclick="showPage('products')">Products</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" onclick="showPage('categories')">Categories</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" onclick="showPage('about')">About</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link cart-icon" onclick="showPage('cart')">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-count">0</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link login-btn" onclick="showPage('login')">Login</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- الصفحة الرئيسية -->
+    <section id="home-page" class="page" style="display: block;">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Welcome to <span class="highlight">KISHKI</span> Supermarket</h1>
+                <p>Fresh halal groceries delivered to your doorstep. Premium quality products at competitive prices.</p>
+                <div class="hero-buttons">
+                    <button class="btn btn-primary" onclick="showPage('products')">
+                        <i class="fas fa-shopping-bag"></i>
+                        Shop Now
+                    </button>
+                    <button class="btn btn-outline" onclick="showPage('categories')">
+                        <i class="fas fa-percent"></i>
+                        View Offers
+                    </button>
+                </div>
+                <div class="hero-features">
+                    <div class="feature">
+                        <i class="fas fa-truck"></i>
+                        <span>Free Delivery</span>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Secure Payment</span>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-undo"></i>
+                        <span>Easy Returns</span>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-certificate"></i>
+                        <span>100% Halal</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Categories Section -->
+        <div class="categories">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Shop by Category</h2>
+                    <p class="section-subtitle">Explore our wide range of halal products</p>
+                </div>
+                <div class="categories-grid">
+                    <div class="category-card" onclick="showPage('category-fruits')">
+                        <div class="category-icon">
+                            <i class="fas fa-apple-alt"></i>
+                        </div>
+                        <h3>Fresh Fruits</h3>
+                        <p>Seasonal and exotic fruits from local farms</p>
+                        <span class="category-badge">125 products</span>
+                    </div>
+
+                    <div class="category-card" onclick="showPage('category-vegetables')">
+                        <div class="category-icon">
+                            <i class="fas fa-carrot"></i>
+                        </div>
+                        <h3>Vegetables</h3>
+                        <p>Organic vegetables picked daily</p>
+                        <span class="category-badge">98 products</span>
+                    </div>
+
+                    <div class="category-card" onclick="showPage('category-dairy')">
+                        <div class="category-icon">
+                            <i class="fas fa-cheese"></i>
+                        </div>
+                        <h3>Dairy Products</h3>
+                        <p>Fresh milk, cheese, and eggs</p>
+                        <span class="category-badge">76 products</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Featured Products -->
+        <div class="products">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">Featured Products</h2>
+                    <p class="section-subtitle">Discover our best-selling halal items</p>
+                </div>
+                
+                <div class="products-grid">
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="https://images.unsplash.com/photo-1568702846914-96b305d2aaeb?w=400&h=300&fit=crop" alt="Organic Apples">
+                        </div>
+                        <div class="product-content">
+                            <h3 class="product-title">Fresh Organic Apples</h3>
+                            <p class="product-description">Crispy organic apples from local farms</p>
+                            <p class="product-price">$15.99</p>
+                            <button class="add-to-cart-btn" data-id="1" data-name="Fresh Organic Apples" data-price="15.99">
+                                <i class="fas fa-shopping-cart"></i>
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="product-card">
+                        <div class="product-image">
+                            <img src="https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?w=400&h=300&fit=crop" alt="Olive Oil">
+                        </div>
+                        <div class="product-content">
+                            <h3 class="product-title">Premium Olive Oil</h3>
+                            <p class="product-description">Extra virgin olive oil first cold press</p>
+                            <p class="product-price">$32.99</p>
+                            <button class="add-to-cart-btn" data-id="2" data-name="Premium Olive Oil" data-price="32.99">
+                                <i class="fas fa-shopping-cart"></i>
+                                Add to Cart
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- صفحة المنتجات -->
+    <section id="products-page" class="page">
+        <div class="page-content">
+            <button class="back-btn" onclick="showPage('home')">
+                <i class="fas fa-arrow-left"></i> Back to Home
+            </button>
+            <h2>All Products</h2>
+            <div class="products-grid">
+                <!-- سيتم ملؤها بالمنتجات -->
+            </div>
+        </div>
+    </section>
+
+    <!-- صفحة السلة -->
+    <section id="cart-page" class="page">
+        <div class="page-content">
+            <button class="back-btn" onclick="showPage('home')">
+                <i class="fas fa-arrow-left"></i> Back to Home
+            </button>
+            <h2>Shopping Cart</h2>
+            <div class="cart-items">
+                <p>Your cart is empty</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- صفحة About -->
+    <section id="about-page" class="page">
+        <div class="page-content">
+            <button class="back-btn" onclick="showPage('home')">
+                <i class="fas fa-arrow-left"></i> Back to Home
+            </button>
+            <h2>About KISHKI Supermarket</h2>
+            <p>We are a premium halal supermarket dedicated to providing the highest quality products.</p>
+        </div>
+    </section>
+
+    <!-- صفحة Login -->
+    <section id="login-page" class="page">
+        <div class="page-content">
+            <button class="back-btn" onclick="showPage('home')">
+                <i class="fas fa-arrow-left"></i> Back to Home
+            </button>
+            <h2>Login to Your Account</h2>
+            <form>
+                <input type="email" placeholder="Email" required>
+                <input type="password" placeholder="Password" required>
+                <button type="submit" class="btn btn-primary">Login</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <img src="https://images.unsplash.com/photo-1563841930606-67e2bce48b78?w=100&h=100&fit=crop" alt="KISHKI Logo">
+                        <span>KISHKI</span>
+                    </div>
+                    <p>Your trusted online supermarket for premium halal products. Quality and freshness guaranteed.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#" onclick="showPage('home')">Home</a></li>
+                        <li><a href="#" onclick="showPage('products')">Products</a></li>
+                        <li><a href="#" onclick="showPage('about')">About</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Contact Info</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> King Fahd Road, Jeddah</p>
+                    <p><i class="fas fa-phone"></i> +966 12 345 6789</p>
+                    <p><i class="fas fa-envelope"></i> info@kishki.com</p>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2024 KISHKI Supermarket. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // إدارة الصفحات
+        function showPage(pageId) {
+            // إخفاء جميع الصفحات
+            document.querySelectorAll('.page').forEach(page => {
+                page.style.display = 'none';
+            });
+            
+            // إظهار الصفحة المطلوبة
+            const targetPage = document.getElementById(pageId + '-page');
+            if (targetPage) {
+                targetPage.style.display = 'block';
+                window.scrollTo(0, 0);
+            }
+        }
+
+        // عربة التسوق
+        class ShoppingCart {
+            constructor() {
+                this.items = [];
+                this.total = 0;
+                this.init();
+            }
+            
+            init() {
+                this.loadFromStorage();
+                this.updateCartUI();
+                this.setupEventListeners();
+            }
+            
+            setupEventListeners() {
+                document.addEventListener('click', (e) => {
+                    if (e.target.classList.contains('add-to-cart-btn')) {
+                        this.addProduct({
+                            id: e.target.dataset.id,
+                            name: e.target.dataset.name,
+                            price: parseFloat(e.target.dataset.price),
+                            image: e.target.closest('.product-card').querySelector('img').src
+                        });
+                    }
+                });
+            }
+            
+            addProduct(product) {
+                this.items.push(product);
+                this.total += product.price;
+                this.saveToStorage();
+                this.updateCartUI();
+                this.showAddedMessage(product.name);
+            }
+            
+            updateCartUI() {
+                const count = this.items.length;
+                document.querySelectorAll('.cart-count').forEach(el => {
+                    el.textContent = count;
+                });
+            }
+            
+            showAddedMessage(productName) {
+                const button = event.target;
+                const originalText = button.innerHTML;
+                
+                button.innerHTML = '<i class="fas fa-check"></i> Added!';
+                button.style.background = '#c0392b';
+                
+                setTimeout(() => {
+                    button.innerHTML = originalText;
+                    button.style.background = '#e74c3c';
+                }, 2000);
+                
+                this.showNotification(`Added to cart: ${productName}`);
+            }
+            
+            showNotification(message) {
+                const notification = document.createElement('div');
+                notification.style.cssText = `
+                    position: fixed;
+                    top: 100px;
+                    right: 20px;
+                    background: #27ae60;
+                    color: white;
+                    padding: 1rem 1.5rem;
+                    border-radius: 8px;
+                    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+                    z-index: 10000;
+                `;
+                notification.innerHTML = `<i class="fas fa-check-circle"></i> ${message}`;
+                document.body.appendChild(notification);
+                
+                setTimeout(() => notification.remove(), 3000);
+            }
+            
+            saveToStorage() {
+                localStorage.setItem('kishki_cart', JSON.stringify({
+                    items: this.items,
+                    total: this.total
+                }));
+            }
+            
+            loadFromStorage() {
+                const saved = localStorage.getItem('kishki_cart');
+                if (saved) {
+                    const data = JSON.parse(saved);
+                    this.items = data.items || [];
+                    this.total = data.total || 0;
+                }
+            }
+        }
+
+        const cart = new ShoppingCart();
+
+        // التنقل السلس
+        function scrollToSection(sectionId) {
+            const element = document.getElementById(sectionId);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+    </script>
 </body>
 </html>
