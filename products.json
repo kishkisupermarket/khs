@@ -4,25 +4,70 @@
       "id": 1,
       "name": "Fresh Organic Apples",
       "price": 15.99,
-      "description": "Crispy organic apples from local farms",
+      "oldPrice": 18.99,
+      "discount": 16,
+      "category": "Fruits",
       "image": "https://images.unsplash.com/photo-1568702846914-96b305d2aaeb?w=400&h=300&fit=crop",
-      "category": "fruits"
+      "description": "Crispy organic apples from local farms. Perfect for snacking, baking, or making fresh juice.",
+      "rating": 4.8,
+      "reviewCount": 156,
+      "stock": 45,
+      "isNew": true,
+      "isFeatured": true
     },
     {
       "id": 2,
       "name": "Premium Olive Oil",
       "price": 32.99,
-      "description": "Extra virgin olive oil first cold press",
+      "oldPrice": 39.99,
+      "discount": 18,
+      "category": "Oils",
       "image": "https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?w=400&h=300&fit=crop",
-      "category": "oils"
+      "description": "Extra virgin olive oil from the first cold pressing. Rich in antioxidants and perfect for cooking.",
+      "rating": 4.9,
+      "reviewCount": 289,
+      "stock": 23,
+      "isNew": false,
+      "isFeatured": true
     },
     {
       "id": 3,
       "name": "Organic Milk",
       "price": 8.99,
-      "description": "Fresh organic milk from grass-fed cows",
+      "category": "Dairy",
       "image": "https://images.unsplash.com/photo-1563636619-e9143da7973b?w=400&h=300&fit=crop",
-      "category": "dairy"
+      "description": "Fresh organic milk from grass-fed cows. Rich in calcium and essential nutrients.",
+      "rating": 4.7,
+      "reviewCount": 203,
+      "stock": 34,
+      "isNew": true,
+      "isFeatured": false
+    },
+    {
+      "id": 4,
+      "name": "Whole Wheat Bread",
+      "price": 4.99,
+      "category": "Bakery",
+      "image": "https://images.unsplash.com/photo-1549931319-a545dcf3bc73?w=400&h=300&fit=crop",
+      "description": "Freshly baked whole wheat bread, rich in fiber and nutrients. Perfect for sandwiches.",
+      "rating": 4.6,
+      "reviewCount": 89,
+      "stock": 12,
+      "isNew": false,
+      "isFeatured": false
+    },
+    {
+      "id": 5,
+      "name": "Fresh Chicken Breast",
+      "price": 12.99,
+      "category": "Meat",
+      "image": "https://images.unsplash.com/photo-1604503468506-a8da13d82791?w=400&h=300&fit=crop",
+      "description": "Fresh, hormone-free chicken breast. Lean protein source, perfect for grilling or baking.",
+      "rating": 4.5,
+      "reviewCount": 167,
+      "stock": 18,
+      "isNew": false,
+      "isFeatured": true
     }
   ]
 }
