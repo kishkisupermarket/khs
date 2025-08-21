@@ -1,14 +1,14 @@
 // ===== MAIN.JS - KISHKI SUPERMARKET =====
-// هذا الملف يحتوي على كل JavaScript الموجود سابقاً في index.html
+// This file contains all JavaScript that was previously in index.html
 
-// إدارة الصفحات
+// Page Management
 function showPage(pageId) {
-    // إخفاء جميع الصفحات
+    // Hide all pages
     document.querySelectorAll('.page').forEach(page => {
         page.style.display = 'none';
     });
     
-    // إظهار الصفحة المطلوبة
+    // Show the requested page
     const targetPage = document.getElementById(pageId + '-page');
     if (targetPage) {
         targetPage.style.display = 'block';
@@ -16,7 +16,7 @@ function showPage(pageId) {
     }
 }
 
-// عربة التسوق
+// Shopping Cart
 class ShoppingCart {
     constructor() {
         this.items = [];
@@ -146,7 +146,7 @@ class ShoppingCart {
     }
 }
 
-// التنقل السلس
+// Smooth Scrolling
 function scrollToSection(sectionId) {
     const element = document.getElementById(sectionId);
     if (element) {
@@ -157,14 +157,14 @@ function scrollToSection(sectionId) {
     }
 }
 
-// تهيئة الموقع عند تحميل الصفحة
+// Initialize website when page loads
 document.addEventListener('DOMContentLoaded', function() {
     console.log('KISHKI Supermarket - Website loaded');
     
-    // تهيئة عربة التسوق
+    // Initialize shopping cart
     window.cart = new ShoppingCart();
     
-    // إضافة event listeners للروابط
+    // Add event listeners for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
@@ -173,7 +173,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // تهيئة forms
+    // Initialize forms
     const forms = document.querySelectorAll('form');
     forms.forEach(form => {
         form.addEventListener('submit', function(e) {
@@ -182,17 +182,17 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // تحميل المحتوى الديناميكي إذا وجد
+    // Load dynamic content if any
     loadDynamicContent();
 });
 
-// تحميل المحتوى الديناميكي
+// Load dynamic content
 function loadDynamicContent() {
-    // يمكن إضافة تحميل المنتجات أو غيره هنا لاحقاً
+    // Can add product loading or other dynamic content here later
     console.log('Loading dynamic content...');
 }
 
-// وظائف مساعدة
+// Utility functions
 function formatPrice(price) {
     return new Intl.NumberFormat('en-US', {
         style: 'currency',
@@ -212,7 +212,7 @@ function debounce(func, wait) {
     };
 }
 
-// جعل الوظائف متاحة globally للاستخدام في HTML
+// Make functions available globally for use in HTML
 window.showPage = showPage;
 window.scrollToSection = scrollToSection;
 window.KISHKI = {
@@ -223,23 +223,23 @@ window.KISHKI = {
     }
 };
 
-// تهيئة عند تحميل الصفحة
+// Initialize when page fully loads
 window.addEventListener('load', function() {
     console.log('Page fully loaded');
     
-    // إخفاء loading spinner إذا كان موجوداً
+    // Hide loading spinner if exists
     const loadingElement = document.querySelector('.loading');
     if (loadingElement) {
         loadingElement.style.display = 'none';
     }
 });
 
-// إدارة errors
+// Error handling
 window.addEventListener('error', function(e) {
     console.error('JavaScript Error:', e.error);
 });
 
-// جعل الكود متاحاً للاستخدام في console لل debugging
+// Make code available for console debugging
 if (typeof console !== 'undefined') {
     console.log('KISHKI JavaScript loaded successfully');
     console.log('Available functions: showPage(), scrollToSection()');
