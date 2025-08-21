@@ -681,3 +681,218 @@ body {
         padding: 0 1rem;
     }
 }
+/* ===== NOTIFICATIONS ===== */
+.notification {
+    position: fixed;
+    top: 100px;
+    right: 20px;
+    background: #27ae60;
+    color: white;
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    z-index: 10000;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+}
+
+.notification.show {
+    transform: translateX(0);
+}
+
+.notification-close {
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    padding: 0.25rem;
+    border-radius: 4px;
+    transition: background 0.2s ease;
+}
+
+.notification-close:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* ===== LOADING STATES ===== */
+.loading-spinner {
+    text-align: center;
+    padding: 3rem;
+    color: var(--text-light);
+}
+
+.loading-spinner i {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    display: block;
+}
+
+.empty-state {
+    text-align: center;
+    padding: 3rem;
+    color: var(--text-light);
+}
+
+.empty-state i {
+    margin-bottom: 1rem;
+    display: block;
+}
+
+.empty-cart {
+    text-align: center;
+    padding: 3rem;
+    color: var(--text-light);
+}
+
+.empty-cart i {
+    margin-bottom: 1rem;
+    display: block;
+    color: var(--primary);
+}
+
+/* ===== PRODUCT ENHANCEMENTS ===== */
+.product-badge {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    background: var(--secondary);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    z-index: 2;
+}
+
+.product-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.product-card:hover .product-overlay {
+    opacity: 1;
+}
+
+.product-actions {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.action-btn {
+    width: 40px;
+    height: 40px;
+    background: var(--white);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-dark);
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.action-btn:hover {
+    background: var(--primary);
+    color: var(--white);
+    transform: scale(1.1);
+}
+
+.old-price {
+    text-decoration: line-through;
+    color: var(--text-light);
+    font-size: 0.9rem;
+    margin-left: 0.5rem;
+}
+
+/* ===== CART ENHANCEMENTS ===== */
+.cart-item {
+    display: grid;
+    grid-template-columns: 80px 1fr auto auto auto;
+    gap: 1rem;
+    align-items: center;
+    padding: 1.5rem;
+    border-bottom: 1px solid var(--light);
+}
+
+.quantity-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.quantity-btn {
+    width: 35px;
+    height: 35px;
+    border: 2px solid var(--light);
+    background: var(--white);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.quantity-btn:hover {
+    border-color: var(--primary);
+    background: var(--primary);
+    color: var(--white);
+}
+
+.quantity-display {
+    min-width: 30px;
+    text-align: center;
+    font-weight: 600;
+}
+
+.remove-item-btn {
+    background: none;
+    border: none;
+    color: var(--text-light);
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.remove-item-btn:hover {
+    color: var(--secondary);
+    background: rgba(231, 76, 60, 0.1);
+}
+
+/* ===== RESPONSIVE ENHANCEMENTS ===== */
+@media (max-width: 768px) {
+    .cart-item {
+        grid-template-columns: 60px 1fr;
+        gap: 1rem;
+        text-align: center;
+    }
+    
+    .quantity-controls {
+        grid-column: 1 / -1;
+        justify-content: center;
+    }
+    
+    .item-total {
+        grid-column: 1 / -1;
+    }
+    
+    .remove-item-btn {
+        grid-column: 1 / -1;
+        justify-self: center;
+    }
+}
