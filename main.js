@@ -97,6 +97,7 @@ class ShoppingCart {
         }, 2000);
         
         this.showNotification(`Added to cart: ${productName}`);
+        this.showBrowserNotification('Product Added', `${productName} was added to your cart!`);
     }
     
     showNotification(message) {
@@ -137,6 +138,15 @@ class ShoppingCart {
                 }, 300);
             }
         }, 5000);
+    }
+    
+    showBrowserNotification(title, message) {
+        if ('Notification' in window && Notification.permission === 'granted') {
+            new Notification(title, {
+                body: message,
+                icon: 'https://images.unsplash.com/photo-1563841930606-67e2bce48b78?w=100&h=100&fit=crop'
+            });
+        }
     }
     
     saveToStorage() {
@@ -669,42 +679,106 @@ function scrollToSection(sectionId) {
     }
 }
 
-// تهيئة الموقع عند تحميل الصفحة
-document.addEventListener('DOMContentLoaded', function() {
-    console.log('KISHKI Supermarket - Website loaded');
+// ===== PERFORMANCE OPTIMIZATION =====
+function initLazyLoading() {
+    const lazyImages = document.querySelectorAll('img[loading="lazy"]');
     
-    // تهيئة عربة التسوق
-    window.cart = new ShoppingCart();
-    
-    // تحميل المنتجات في الصفحة الرئيسية
-    displayProducts();
-    
-    // إضافة event listeners
-    setupEventListeners();
-});
+    if ('IntersectionObserver' in window) {
+        const imageObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    img.src = img.src;
+                    imageObserver.unobserve(img);
+                }
+            });
+        });
 
-// إعداد event listeners
-function setupEventListeners() {
-    // التنقل السلس للروابط
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const targetId = this.getAttribute('href').substring(1);
-            scrollToSection(targetId);
-        });
-    });
-    
-    // إدارة forms
-    const forms = document.querySelectorAll('form');
-    forms.forEach(form => {
-        form.addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('Form submission would be processed here');
-        });
+        lazyImages.forEach(img => imageObserver.observe(img));
+    }
+}
+
+function initSmoothScroll() {
+    document.addEventListener('scroll', debounce(() => {
+        // تحسين الأداء أثناء Scroll
+    }, 100));
+}
+
+// ===== ANALYTICS & TRACKING =====
+function initAnalytics() {
+    trackPageView();
+    setupEventTracking();
+}
+
+function trackPageView() {
+    const pageName = document.title;
+    console.log('Page viewed:', pageName);
+}
+
+function setupEventTracking() {
+    document.addEventListener('click', (e) => {
+        if (e.target.classList.contains('add-to-cart-btn')) {
+            trackEvent('add_to_cart', {
+                product_id: e.target.dataset.id,
+                product_name: e.target.dataset.name
+            });
+        }
+        
+        if (e.target.classList.contains('product-card')) {
+            trackEvent('product_click', {
+                product_id: e.target.dataset.productId
+            });
+        }
     });
 }
 
-// وظائف مساعدة
+function trackEvent(eventName, eventData) {
+    console.log('Event:', eventName, eventData);
+}
+
+// ===== NOTIFICATION SYSTEM =====
+function initNotifications() {
+    if ('Notification' in window) {
+        Notification.requestPermission().then(permission => {
+            console.log('Notification permission:', permission);
+        });
+    }
+}
+
+// ===== ERROR HANDLING =====
+function initErrorHandling() {
+    window.addEventListener('error', handleError);
+    window.addEventListener('unhandledrejection', handlePromiseRejection);
+    monitorPerformance();
+}
+
+function handleError(event) {
+    console.error('Error:', event.error);
+}
+
+function handlePromiseRejection(event) {
+    console.error('Promise rejection:', event.reason);
+}
+
+function monitorPerformance() {
+    window.addEventListener('load', () => {
+        const navigationTiming = performance.getEntriesByType('navigation')[0];
+        if (navigationTiming) {
+            console.log('Page load time:', navigationTiming.loadEventEnd - navigationTiming.navigationStart, 'ms');
+        }
+    });
+}
+
+// ===== SERVICE WORKER REGISTRATION =====
+function registerServiceWorker() {
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/sw.js')
+            .then(() => console.log('Service Worker registered'))
+            .catch(error => console.log('Service Worker registration failed:', error));
+    }
+}
+
+// ===== UTILITY FUNCTIONS =====
 function formatPrice(price) {
     return new Intl.NumberFormat('en-US', {
         style: 'currency',
@@ -724,6 +798,69 @@ function debounce(func, wait) {
     };
 }
 
+// ===== INITIALIZATION =====
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('KISHKI Supermarket - Website loaded');
+    
+    // تهيئة عربة التسوق
+    window.cart = new ShoppingCart();
+    
+    // تحميل المنتجات
+    displayProducts();
+    
+    // إعداد event listeners
+    setupEventListeners();
+    
+    // تهيئة الأنظمة الجديدة
+    initLazyLoading();
+    initSmoothScroll();
+    initAnalytics();
+    initNotifications();
+    initErrorHandling();
+    registerServiceWorker();
+    
+    // تتبع أداء الموقع
+    setTimeout(runPerformanceTests, 2000);
+});
+
+// إعداد event listeners
+function setupEventListeners() {
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href').substring(1);
+            scrollToSection(targetId);
+        });
+    });
+    
+    const forms = document.querySelectorAll('form');
+    forms.forEach(form => {
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Form submission would be processed here');
+        });
+    });
+}
+
+// عرض المنتجات
+async function displayProducts(container = '#productsGrid') {
+    allProducts = await loadProducts();
+    initFilterSystem();
+    filterProducts();
+}
+
+// اختبار الأداء
+function runPerformanceTests() {
+    const loadTime = performance.now();
+    console.log('Page loaded in:', loadTime, 'ms');
+    
+    const navigationTiming = performance.getEntriesByType('navigation')[0];
+    if (navigationTiming) {
+        console.log('DOM ready in:', navigationTiming.domContentLoadedEventEnd - navigationTiming.navigationStart, 'ms');
+        console.log('Page fully loaded in:', navigationTiming.loadEventEnd - navigationTiming.navigationStart, 'ms');
+    }
+}
+
 // جعل الوظائف متاحة globally
 window.showPage = showPage;
 window.scrollToSection = scrollToSection;
@@ -733,64 +870,3 @@ window.clearAllFilters = clearAllFilters;
 window.changePage = changePage;
 window.quickView = quickView;
 window.addToWishlist = addToWishlist;
-
-// تهيئة عند تحميل الصفحة بالكامل
-window.addEventListener('load', function() {
-    console.log('Page fully loaded');
-});
-
-// إدارة errors
-window.addEventListener('error', function(e) {
-    console.error('JavaScript Error:', e.error);
-});
-
-// عرض المنتجات
-async function displayProducts(container = '#productsGrid') {
-    allProducts = await loadProducts();
-    initFilterSystem();
-    filterProducts();
-}
-// أضف هذا في نهاية ملف main.js
-// ===== PERFORMANCE OPTIMIZATION =====
-
-// Lazy Loading للصور
-function initLazyLoading() {
-    const lazyImages = document.querySelectorAll('img[loading="lazy"]');
-    
-    if ('IntersectionObserver' in window) {
-        const imageObserver = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const img = entry.target;
-                    img.src = img.src;
-                    imageObserver.unobserve(img);
-                }
-            });
-        });
-
-        lazyImages.forEach(img => imageObserver.observe(img));
-    }
-}
-
-// Preload الصور المهمة
-function preloadCriticalImages() {
-    const criticalImages = [
-        'https://images.unsplash.com/photo-1563841930606-67e2bce48b78?w=100&h=100&fit=crop',
-        'https://images.unsplash.com/photo-1566842600175-97dca3dfc3c7?w=1200'
-    ];
-    
-    criticalImages.forEach(src => {
-        const link = document.createElement('link');
-        link.rel = 'preload';
-        link.as = 'image';
-        link.href = src;
-        document.head.appendChild(link);
-    });
-}
-
-// تحسين scroll performance
-function initSmoothScroll() {
-    document.addEventListener('scroll', debounce(() => {
-        // تحسين الأداء أثناء Scroll
-    }, 100));
-}
