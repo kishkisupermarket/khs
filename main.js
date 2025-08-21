@@ -1,22 +1,29 @@
 // ===== MAIN.JS - KISHKI SUPERMARKET =====
-// This file contains all JavaScript that was previously in index.html
+// هذا الملف يحتوي على كل JavaScript
 
-// Page Management
+// إدارة الصفحات
 function showPage(pageId) {
-    // Hide all pages
+    // إخفاء جميع الصفحات
     document.querySelectorAll('.page').forEach(page => {
         page.style.display = 'none';
     });
     
-    // Show the requested page
+    // إظهار الصفحة المطلوبة
     const targetPage = document.getElementById(pageId + '-page');
     if (targetPage) {
         targetPage.style.display = 'block';
         window.scrollTo(0, 0);
+        
+        // تحميل المحتوى الديناميكي عند الحاجة
+        if (pageId === 'products') {
+            loadProductsPage();
+        } else if (pageId === 'cart') {
+            loadCartPage();
+        }
     }
 }
 
-// Shopping Cart
+// عربة التسوق
 class ShoppingCart {
     constructor() {
         this.items = [];
@@ -47,15 +54,30 @@ class ShoppingCart {
     }
     
     addProduct(product) {
-        this.items.push(product);
-        this.total += product.price;
+        // البحث إذا كان المنتج موجود مسبقاً
+        const existingItem = this.items.find(item => item.id === product.id);
+        
+        if (existingItem) {
+            existingItem.quantity = (existingItem.quantity || 1) + 1;
+        } else {
+            product.quantity = 1;
+            this.items.push(product);
+        }
+        
+        this.calculateTotal();
         this.saveToStorage();
         this.updateCartUI();
         this.showAddedMessage(product.name);
     }
     
+    calculateTotal() {
+        this.total = this.items.reduce((sum, item) => {
+            return sum + (item.price * (item.quantity || 1));
+        }, 0);
+    }
+    
     updateCartUI() {
-        const count = this.items.length;
+        const count = this.items.reduce((total, item) => total + (item.quantity || 1), 0);
         document.querySelectorAll('.cart-count').forEach(el => {
             el.textContent = count;
             el.style.display = count > 0 ? 'flex' : 'none';
@@ -67,7 +89,7 @@ class ShoppingCart {
         const originalText = button.innerHTML;
         
         button.innerHTML = '<i class="fas fa-check"></i> Added!';
-        button.style.background = '#c0392b';
+        button.style.background = '#27ae60';
         
         setTimeout(() => {
             button.innerHTML = originalText;
@@ -78,27 +100,43 @@ class ShoppingCart {
     }
     
     showNotification(message) {
+        // إنشاء عنصر الإشعار
         const notification = document.createElement('div');
-        notification.style.cssText = `
-            position: fixed;
-            top: 100px;
-            right: 20px;
-            background: #27ae60;
-            color: white;
-            padding: 1rem 1.5rem;
-            border-radius: 8px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-            z-index: 10000;
-            font-weight: 600;
+        notification.className = 'notification';
+        notification.innerHTML = `
+            <i class="fas fa-check-circle"></i> 
+            <span>${message}</span>
+            <button class="notification-close">
+                <i class="fas fa-times"></i>
+            </button>
         `;
-        notification.innerHTML = `<i class="fas fa-check-circle"></i> ${message}`;
+        
         document.body.appendChild(notification);
         
+        // إظهار الإشعار
+        setTimeout(() => {
+            notification.classList.add('show');
+        }, 100);
+        
+        // إغلاق الإشعار
+        notification.querySelector('.notification-close').addEventListener('click', () => {
+            notification.classList.remove('show');
+            setTimeout(() => {
+                if (notification.parentNode) {
+                    notification.parentNode.removeChild(notification);
+                }
+            }, 300);
+        });
+        
+        // إزالة تلقائية بعد 5 ثواني
         setTimeout(() => {
             if (notification.parentNode) {
-                notification.parentNode.removeChild(notification);
+                notification.classList.remove('show');
+                setTimeout(() => {
+                    notification.parentNode.removeChild(notification);
+                }, 300);
             }
-        }, 3000);
+        }, 5000);
     }
     
     saveToStorage() {
@@ -125,7 +163,7 @@ class ShoppingCart {
     
     removeProduct(productId) {
         this.items = this.items.filter(item => item.id !== productId);
-        this.total = this.items.reduce((sum, item) => sum + item.price, 0);
+        this.calculateTotal();
         this.saveToStorage();
         this.updateCartUI();
     }
@@ -138,7 +176,7 @@ class ShoppingCart {
     }
     
     getItemCount() {
-        return this.items.length;
+        return this.items.reduce((total, item) => total + (item.quantity || 1), 0);
     }
     
     getTotalPrice() {
@@ -146,7 +184,179 @@ class ShoppingCart {
     }
 }
 
-// Smooth Scrolling
+// تحميل المنتجات من ملف JSON
+async function loadProducts() {
+    try {
+        const response = await fetch('products.json');
+        if (!response.ok) {
+            throw new Error('Failed to load products');
+        }
+        const data = await response.json();
+        return data.products || [];
+    } catch (error) {
+        console.error('Error loading products:', error);
+        return [];
+    }
+}
+
+// عرض المنتجات في الصفحة
+async function displayProducts(container = '.products-grid') {
+    const productsGrid = document.querySelector(container);
+    if (!productsGrid) return;
+    
+    // إظهار حالة التحميل
+    productsGrid.innerHTML = `
+        <div class="loading-spinner">
+            <i class="fas fa-spinner fa-spin"></i>
+            <p>Loading products...</p>
+        </div>
+    `;
+    
+    const products = await loadProducts();
+    
+    if (products.length === 0) {
+        productsGrid.innerHTML = `
+            <div class="empty-state">
+                <i class="fas fa-box-open fa-3x"></i>
+                <p>No products available at the moment</p>
+            </div>
+        `;
+        return;
+    }
+    
+    productsGrid.innerHTML = products.map(product => `
+        <div class="product-card" data-product-id="${product.id}">
+            ${product.discount ? `
+                <div class="product-badge">
+                    ${product.discount}% OFF
+                </div>
+            ` : ''}
+            
+            <div class="product-image">
+                <img src="${product.image}" alt="${product.name}" loading="lazy">
+                <div class="product-overlay">
+                    <div class="product-actions">
+                        <button class="action-btn quick-view" data-product-id="${product.id}">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                        <button class="action-btn add-to-wishlist" data-product-id="${product.id}">
+                            <i class="far fa-heart"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="product-content">
+                <span class="product-category">${product.category}</span>
+                <h3 class="product-title">${product.name}</h3>
+                <p class="product-description">${product.description}</p>
+                
+                <div class="product-rating">
+                    <div class="stars">
+                        ${generateStarRating(product.rating || 0)}
+                    </div>
+                    <span class="rating-count">(${product.reviewCount || 0})</span>
+                </div>
+                
+                <div class="product-price">
+                    <span class="current-price">$${product.price.toFixed(2)}</span>
+                    ${product.oldPrice ? `
+                        <span class="old-price">$${product.oldPrice.toFixed(2)}</span>
+                    ` : ''}
+                </div>
+                
+                <button class="add-to-cart-btn" 
+                        data-id="${product.id}" 
+                        data-name="${product.name}" 
+                        data-price="${product.price}">
+                    <i class="fas fa-shopping-cart"></i>
+                    Add to Cart
+                </button>
+            </div>
+        </div>
+    `).join('');
+}
+
+// توليد تقييم النجوم
+function generateStarRating(rating) {
+    const fullStars = Math.floor(rating);
+    const halfStar = rating % 1 >= 0.5;
+    const emptyStars = 5 - fullStars - (halfStar ? 1 : 0);
+    
+    let stars = '';
+    
+    for (let i = 0; i < fullStars; i++) {
+        stars += '<i class="fas fa-star"></i>';
+    }
+    
+    if (halfStar) {
+        stars += '<i class="fas fa-star-half-alt"></i>';
+    }
+    
+    for (let i = 0; i < emptyStars; i++) {
+        stars += '<i class="far fa-star"></i>';
+    }
+    
+    return stars;
+}
+
+// تحميل صفحة المنتجات
+async function loadProductsPage() {
+    await displayProducts('#products-page .products-grid');
+}
+
+// تحميل صفحة السلة
+function loadCartPage() {
+    const cartContainer = document.querySelector('#cart-page .cart-items');
+    if (!cartContainer) return;
+    
+    if (window.cart.items.length === 0) {
+        cartContainer.innerHTML = `
+            <div class="empty-cart">
+                <i class="fas fa-shopping-cart fa-3x"></i>
+                <h3>Your cart is empty</h3>
+                <p>Start shopping to add items to your cart</p>
+                <button class="btn btn-primary" onclick="showPage('products')">
+                    Continue Shopping
+                </button>
+            </div>
+        `;
+        return;
+    }
+    
+    cartContainer.innerHTML = window.cart.items.map(item => `
+        <div class="cart-item" data-product-id="${item.id}">
+            <div class="item-image">
+                <img src="${item.image}" alt="${item.name}">
+            </div>
+            
+            <div class="item-details">
+                <h3 class="item-name">${item.name}</h3>
+                <p class="item-price">$${item.price.toFixed(2)} each</p>
+            </div>
+            
+            <div class="quantity-controls">
+                <button class="quantity-btn quantity-decrease" data-product-id="${item.id}">
+                    <i class="fas fa-minus"></i>
+                </button>
+                <span class="quantity-display">${item.quantity || 1}</span>
+                <button class="quantity-btn quantity-increase" data-product-id="${item.id}">
+                    <i class="fas fa-plus"></i>
+                </button>
+            </div>
+            
+            <div class="item-total">
+                <span class="total-price">$${(item.price * (item.quantity || 1)).toFixed(2)}</span>
+            </div>
+            
+            <button class="remove-item-btn" data-product-id="${item.id}">
+                <i class="fas fa-trash"></i>
+            </button>
+        </div>
+    `).join('');
+}
+
+// التنقل السلس
 function scrollToSection(sectionId) {
     const element = document.getElementById(sectionId);
     if (element) {
@@ -157,14 +367,23 @@ function scrollToSection(sectionId) {
     }
 }
 
-// Initialize website when page loads
+// تهيئة الموقع عند تحميل الصفحة
 document.addEventListener('DOMContentLoaded', function() {
     console.log('KISHKI Supermarket - Website loaded');
     
-    // Initialize shopping cart
+    // تهيئة عربة التسوق
     window.cart = new ShoppingCart();
     
-    // Add event listeners for anchor links
+    // تحميل المنتجات في الصفحة الرئيسية
+    displayProducts();
+    
+    // إضافة event listeners
+    setupEventListeners();
+});
+
+// إعداد event listeners
+function setupEventListeners() {
+    // التنقل السلس للروابط
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
@@ -173,26 +392,18 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Initialize forms
+    // إدارة forms
     const forms = document.querySelectorAll('form');
     forms.forEach(form => {
         form.addEventListener('submit', function(e) {
             e.preventDefault();
+            // معالجة إرسال النموذج هنا
             alert('Form submission would be processed here');
         });
     });
-    
-    // Load dynamic content if any
-    loadDynamicContent();
-});
-
-// Load dynamic content
-function loadDynamicContent() {
-    // Can add product loading or other dynamic content here later
-    console.log('Loading dynamic content...');
 }
 
-// Utility functions
+// وظائف مساعدة
 function formatPrice(price) {
     return new Intl.NumberFormat('en-US', {
         style: 'currency',
@@ -212,36 +423,17 @@ function debounce(func, wait) {
     };
 }
 
-// Make functions available globally for use in HTML
+// جعل الوظائف متاحة globally
 window.showPage = showPage;
 window.scrollToSection = scrollToSection;
-window.KISHKI = {
-    cart: null,
-    utils: {
-        formatPrice,
-        debounce
-    }
-};
+window.displayProducts = displayProducts;
 
-// Initialize when page fully loads
+// تهيئة عند تحميل الصفحة بالكامل
 window.addEventListener('load', function() {
     console.log('Page fully loaded');
-    
-    // Hide loading spinner if exists
-    const loadingElement = document.querySelector('.loading');
-    if (loadingElement) {
-        loadingElement.style.display = 'none';
-    }
 });
 
-// Error handling
+// إدارة errors
 window.addEventListener('error', function(e) {
     console.error('JavaScript Error:', e.error);
 });
-
-// Make code available for console debugging
-if (typeof console !== 'undefined') {
-    console.log('KISHKI JavaScript loaded successfully');
-    console.log('Available functions: showPage(), scrollToSection()');
-    console.log('Cart instance: window.cart');
-}
