@@ -19,5 +19,6 @@
       "type": "image/png"
     }
   ],
-  "categories": ["food", "shopping", "lifestyle"]
+  "categories": ["food", "shopping", "lifestyle"],
+  "lang": "en"
 }
