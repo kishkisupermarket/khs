@@ -125,38 +125,45 @@
                     <h2 class="section-title">Featured Products</h2>
                     <p class="section-subtitle">Discover our best-selling halal items</p>
                 </div>
-                
-                <div class="products-grid">
-                    <div class="product-card">
-                        <div class="product-image">
-                            <img src="https://images.unsplash.com/photo-1568702846914-96b305d2aaeb?w=400&h=300&fit=crop" alt="Organic Apples">
-                        </div>
-                        <div class="product-content">
-                            <h3 class="product-title">Fresh Organic Apples</h3>
-                            <p class="product-description">Crispy organic apples from local farms</p>
-                            <p class="product-price">$15.99</p>
-                            <button class="add-to-cart-btn" data-id="1" data-name="Fresh Organic Apples" data-price="15.99">
-                                <i class="fas fa-shopping-cart"></i>
-                                Add to Cart
-                            </button>
-                        </div>
+
+                <!-- عناصر التحكم في التصفية -->
+                <div class="products-controls">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="productSearch" placeholder="Search products..." class="search-input">
                     </div>
                     
-                    <div class="product-card">
-                        <div class="product-image">
-                            <img src="https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?w=400&h=300&fit=crop" alt="Olive Oil">
-                        </div>
-                        <div class="product-content">
-                            <h3 class="product-title">Premium Olive Oil</h3>
-                            <p class="product-description">Extra virgin olive oil first cold press</p>
-                            <p class="product-price">$32.99</p>
-                            <button class="add-to-cart-btn" data-id="2" data-name="Premium Olive Oil" data-price="32.99">
-                                <i class="fas fa-shopping-cart"></i>
-                                Add to Cart
-                            </button>
-                        </div>
+                    <div class="filter-controls">
+                        <select id="categoryFilter" class="filter-select">
+                            <option value="all">All Categories</option>
+                            <option value="fruits">Fruits</option>
+                            <option value="vegetables">Vegetables</option>
+                            <option value="dairy">Dairy</option>
+                            <option value="meat">Meat</option>
+                            <option value="bakery">Bakery</option>
+                            <option value="oils">Oils</option>
+                        </select>
+                        
+                        <select id="sortFilter" class="filter-select">
+                            <option value="default">Default Sorting</option>
+                            <option value="price-low">Price: Low to High</option>
+                            <option value="price-high">Price: High to Low</option>
+                            <option value="name">Name: A to Z</option>
+                            <option value="rating">Highest Rated</option>
+                            <option value="newest">Newest First</option>
+                        </select>
                     </div>
                 </div>
+
+                <div class="products-counter" id="productsCounter"></div>
+
+                <div class="active-filters" id="activeFilters"></div>
+
+                <div class="products-grid" id="productsGrid">
+                    <!-- سيتم ملؤها بالمنتجات -->
+                </div>
+
+                <div class="pagination" id="pagination"></div>
             </div>
         </div>
     </section>
