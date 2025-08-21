@@ -1,0 +1,28 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "Fresh Organic Apples",
+      "price": 15.99,
+      "description": "Crispy organic apples from local farms",
+      "image": "https://images.unsplash.com/photo-1568702846914-96b305d2aaeb?w=400&h=300&fit=crop",
+      "category": "fruits"
+    },
+    {
+      "id": 2,
+      "name": "Premium Olive Oil",
+      "price": 32.99,
+      "description": "Extra virgin olive oil first cold press",
+      "image": "https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?w=400&h=300&fit=crop",
+      "category": "oils"
+    },
+    {
+      "id": 3,
+      "name": "Organic Milk",
+      "price": 8.99,
+      "description": "Fresh organic milk from grass-fed cows",
+      "image": "https://images.unsplash.com/photo-1563636619-e9143da7973b?w=400&h=300&fit=crop",
+      "category": "dairy"
+    }
+  ]
+}
