@@ -44,14 +44,9 @@
     </script>
 
     <!-- Preload critical resources -->
-    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <link rel="preload" href="style.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" as="style">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" as="style">
     
-    <!-- Preload critical images -->
-    <link rel="preload" href="https://images.unsplash.com/photo-1563841930606-67e2bce48b78?w=100&h=100&fit=crop" as="image">
-    <link rel="preload" href="https://images.unsplash.com/photo-1566842600175-97dca3dfc3c7?w=1200" as="image">
-
     <!-- Stylesheets -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -65,7 +60,7 @@
     <nav class="navbar">
         <div class="nav-container">
             <a href="#" class="nav-logo" onclick="showPage('home')">
-                <img src="https://images.unsplash.com/photo-1563841930606-67e2bce48b78?w=100&h=100&fit=crop" alt="KISHKI Logo" loading="eager">
+                <img src="https://images.unsplash.com/photo-1563841930606-67e2bce48b78?w=100&h=100&fit=crop" alt="KISHKI Logo" loading="eager" width="100" height="100">
                 <span>KISHKI HALAL SUPERMARKET</span>
             </a>
             
@@ -95,7 +90,7 @@
         </div>
     </nav>
 
-    <!-- الصفحة الرئيسية -->
+    <!-- Home Page -->
     <section id="home-page" class="page" style="display: block;">
         <div class="container">
             <!-- Search Box at the Top -->
@@ -108,11 +103,11 @@
                 <h1>Welcome to <span class="highlight">KISHKI HALAL SUPERMARKET</span></h1>
                 <p>Fresh halal groceries delivered to your doorstep. Premium quality products at competitive prices.</p>
                 <div class="hero-buttons">
-                    <button class="btn btn-primary" onclick="showPage('products')">
+                    <button class="btn btn-primary" onclick="showPage('products')" aria-label="Browse our products">
                         <i class="fas fa-shopping-bag"></i>
                         Shop Now
                     </button>
-                    <button class="btn btn-outline" onclick="showPage('categories')">
+                    <button class="btn btn-outline" onclick="showPage('categories')" aria-label="View current offers">
                         <i class="fas fa-percent"></i>
                         View Offers
                     </button>
@@ -184,31 +179,6 @@
                     <p class="section-subtitle">Discover our best-selling halal items</p>
                 </div>
 
-                <!-- عناصر التحكم في التصفية -->
-                <div class="products-controls">
-                    <div class="filter-controls">
-                        <select id="categoryFilter" class="filter-select" aria-label="Filter by category">
-                            <option value="all">All Categories</option>
-                            <option value="grocery">GROCERY</option>
-                            <option value="meat">MEAT</option>
-                            <option value="vegetables">VEGETABLES</option>
-                        </select>
-                        
-                        <select id="sortFilter" class="filter-select" aria-label="Sort products">
-                            <option value="default">Default Sorting</option>
-                            <option value="price-low">Price: Low to High</option>
-                            <option value="price-high">Price: High to Low</option>
-                            <option value="name">Name: A to Z</option>
-                            <option value="rating">Highest Rated</option>
-                            <option value="newest">Newest First</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="products-counter" id="productsCounter" aria-live="polite"></div>
-
-                <div class="active-filters" id="activeFilters" aria-live="polite"></div>
-
                 <div class="products-grid" id="productsGrid">
                     <!-- سيتم ملؤها بالمنتجات -->
                 </div>
@@ -218,10 +188,10 @@
         </div>
     </section>
 
-    <!-- صفحة المنتجات -->
+    <!-- Products Page -->
     <section id="products-page" class="page">
         <div class="page-content">
-            <button class="back-btn" onclick="showPage('home')">
+            <button class="back-btn" onclick="showPage('home')" aria-label="Go back to home page">
                 <i class="fas fa-arrow-left"></i> Back to Home
             </button>
             <h2>All Products</h2>
@@ -231,10 +201,10 @@
         </div>
     </section>
 
-    <!-- صفحة السلة -->
+    <!-- Cart Page -->
     <section id="cart-page" class="page">
         <div class="page-content">
-            <button class="back-btn" onclick="showPage('home')">
+            <button class="back-btn" onclick="showPage('home')" aria-label="Go back to home page">
                 <i class="fas fa-arrow-left"></i> Back to Home
             </button>
             <h2>Shopping Cart</h2>
@@ -244,10 +214,10 @@
         </div>
     </section>
 
-    <!-- صفحة About -->
+    <!-- About Page -->
     <section id="about-page" class="page">
         <div class="page-content">
-            <button class="back-btn" onclick="showPage('home')">
+            <button class="back-btn" onclick="showPage('home')" aria-label="Go back to home page">
                 <i class="fas fa-arrow-left"></i> Back to Home
             </button>
             <h2>About KISHKI HALAL SUPERMARKET</h2>
@@ -255,10 +225,10 @@
         </div>
     </section>
 
-    <!-- صفحة Login -->
+    <!-- Login Page -->
     <section id="login-page" class="page">
         <div class="page-content">
-            <button class="back-btn" onclick="showPage('home')">
+            <button class="back-btn" onclick="showPage('home')" aria-label="Go back to home page">
                 <i class="fas fa-arrow-left"></i> Back to Home
             </button>
             <h2>Login to Your Account</h2>
@@ -276,7 +246,7 @@
             <div class="footer-content">
                 <div class="footer-section">
                     <div class="footer-logo">
-                        <img src="https://images.unsplash.com/photo-1563841930606-67e2bce48b78?w=100&h=100&fit=crop" alt="KISHKI Logo" loading="lazy">
+                        <img src="https://images.unsplash.com/photo-1563841930606-67e2bce48b78?w=100&h=100&fit=crop" alt="KISHKI Logo" loading="lazy" width="100" height="100">
                         <span>KISHKI HALAL SUPERMARKET</span>
                     </div>
                     <p>Your trusted halal supermarket in Waterloo for premium halal products. Quality and freshness guaranteed.</p>
